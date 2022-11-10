@@ -4,12 +4,12 @@ using System.Text.Json;
 
 namespace HolidaySearchExercise.DataStore;
 
-public class FlightsDataStore : IFlightsDataStore 
+public class HotelDataStore : IHotelDataStore 
 {
-    protected string resourceName = "HolidaySearchExercise.Resources.FlightDataJson.json"; 
-    private List<Flight> flights;
+    protected string resourceName = "HolidaySearchExercise.Resources.HotelDataJson.json"; 
+    private List<Hotel> hotels;
 
-    public FlightsDataStore()
+    public HotelDataStore()
     {
         var assembly = Assembly.GetExecutingAssembly();
         string jsonFile;
@@ -19,13 +19,13 @@ public class FlightsDataStore : IFlightsDataStore
             jsonFile = reader.ReadToEnd();
         }
 
-        flights = JsonSerializer.Deserialize<List<Flight>>(jsonFile);
+        hotels = JsonSerializer.Deserialize<List<Hotel>>(jsonFile);
     }
 
-    public List<Flight> GetData() => flights;
+    public List<Hotel> GetData() => hotels;
 }
 
-public interface IFlightsDataStore
+public interface IHotelDataStore
 {
-    public List<Flight> GetData();
+    public List<Hotel> GetData();
 }
