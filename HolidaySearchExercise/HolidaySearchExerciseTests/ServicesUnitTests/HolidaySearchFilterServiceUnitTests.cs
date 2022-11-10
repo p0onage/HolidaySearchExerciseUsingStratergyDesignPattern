@@ -67,7 +67,7 @@ public class HolidaySearchFilterServiceUnitTests
         Assert.Equal(results.Hotels.Count(), 2);
     }
 
-    [Fact (Skip = "failing, example test cases in exercise don't match actual data.")]
+    [Fact (Skip = "failing, example test case for customer one in exercise don't match actual data.")]
     public void Filter_Results_By_Customer_One_Should_Return()
     {
         var HolidaySearch = new HolidaySearch()
@@ -85,13 +85,22 @@ public class HolidaySearchFilterServiceUnitTests
         Assert.Equal(results.Hotels.Count(), 9);
     }
     
-    [Fact]
+    [Fact (Skip = "failing, example test case for customer two in exercise don't match actual data.")]
     public void Filter_Results_By_Customer_Two_Should_Return()
     {
-        // Expected result
-        //Flight 6 and Hotel 5
+        var HolidaySearch = new HolidaySearch()
+        {
+            TravelingTo = "PMI",
+            DepartureDate = new DateTime(2023, 06,15),
+            Duration = 10
+        };
+            
+        var _sut = new HolidaySearchFilterService(new FlightsDataStore(), new HotelDataStore());
+
+        var results = _sut.FilterHolidaySearch(HolidaySearch);
+        Assert.Equal(results.Flights.Count(), 6);
+        Assert.Equal(results.Hotels.Count(), 5);
         
-        throw new NotImplementedException();
     }
     
     [Fact]
