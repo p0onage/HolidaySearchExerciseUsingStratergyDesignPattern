@@ -40,6 +40,9 @@ public class HolidaySearchFilterService : IHolidaySearchFilterService
             filterList.Filter(holidaySearchFilter);
         }
         
+        filterList.SetFilterStrategy(new SortByBestValue());
+        filterList.Filter(holidaySearchFilter);
+        
         return _searchResults;
     }
 }

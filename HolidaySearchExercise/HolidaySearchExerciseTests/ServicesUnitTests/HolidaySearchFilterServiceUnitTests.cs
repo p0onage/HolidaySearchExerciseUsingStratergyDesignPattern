@@ -7,7 +7,8 @@ namespace HolidaySearchExercise.ServicesUnitTests;
 
 public class HolidaySearchFilterServiceUnitTests
 {
-    
+    private HolidaySearchFilterService _sut = new(new FlightsDataStore(), new HotelDataStore());
+
     [Fact]
     public void Filter_Results_By_Departing_From_Should_Return()
     {
@@ -16,8 +17,6 @@ public class HolidaySearchFilterServiceUnitTests
             DepartingFrom = "MAN"
         };
             
-        var _sut = new HolidaySearchFilterService(new FlightsDataStore(), new HotelDataStore());
-
         var results = _sut.FilterHolidaySearch(HolidaySearch);
         Assert.Equal(results.Flights.Count(), 8);
     }
@@ -30,8 +29,6 @@ public class HolidaySearchFilterServiceUnitTests
             TravelingTo = "TFS"
         };
             
-        var _sut = new HolidaySearchFilterService(new FlightsDataStore(), new HotelDataStore());
-
         var results = _sut.FilterHolidaySearch(HolidaySearch);
         Assert.Equal(results.Flights.Count(), 1);
         Assert.Equal(results.Hotels.Count(), 2);
@@ -45,8 +42,6 @@ public class HolidaySearchFilterServiceUnitTests
             Duration = 7
         };
             
-        var _sut = new HolidaySearchFilterService(new FlightsDataStore(), new HotelDataStore());
-
         var results = _sut.FilterHolidaySearch(HolidaySearch);
         Assert.Equal(results.Flights.Count(), 12);
         Assert.Equal(results.Hotels.Count(), 5);
@@ -60,12 +55,29 @@ public class HolidaySearchFilterServiceUnitTests
             DepartureDate = new DateTime(2023, 07,01)
         };
             
-        var _sut = new HolidaySearchFilterService(new FlightsDataStore(), new HotelDataStore());
-
         var results = _sut.FilterHolidaySearch(HolidaySearch);
         Assert.Equal(results.Flights.Count(), 4);
         Assert.Equal(results.Hotels.Count(), 2);
     }
+    
+    [Fact]
+    public void Hotels_Should_Be_Sorted_By_Best_Value()
+    {
+        var HolidaySearch = new HolidaySearch();
+            
+        var results = _sut.FilterHolidaySearch(HolidaySearch);
+        Assert.Equal(results.Hotels.First().PricePerNight, 45);
+    }
+
+    [Fact]
+    public void Flights_Should_Be_Sorted_By_Best_Value()
+    {
+        var HolidaySearch = new HolidaySearch();
+            
+        var results = _sut.FilterHolidaySearch(HolidaySearch);
+        Assert.Equal(results.Flights.First().Price, 75);
+    }
+
 
     [Fact (Skip = "failing, example test case for customer one in exercise don't match actual data.")]
     public void Filter_Results_By_Customer_One_Should_Return()

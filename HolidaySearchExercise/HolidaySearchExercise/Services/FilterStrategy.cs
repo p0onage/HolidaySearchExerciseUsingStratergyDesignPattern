@@ -44,6 +44,15 @@ public class FilterByDuration : FilterStrategy
     }
 }
 
+public class SortByBestValue : FilterStrategy
+{
+    public override void Sort(SearchResults searchResults, HolidaySearch filter)
+    {
+        searchResults.Hotels = searchResults.Hotels.OrderBy(x => x.PricePerNight);
+        searchResults.Flights = searchResults.Flights.OrderBy(x => x.Price);
+    }
+}
+
 public class FilterList
 {
     private SearchResults searchResults;
