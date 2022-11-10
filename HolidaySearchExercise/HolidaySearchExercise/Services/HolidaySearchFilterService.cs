@@ -17,7 +17,11 @@ public class HolidaySearchFilterService : IHolidaySearchFilterService
         var filterList = new FilterList(_searchResults);
         
         filterList.SetFilterStrategy(new FilterByDepartingAirport());
-        filterList.Filter(holidaySearchFilter);
+
+        if (!string.IsNullOrEmpty(holidaySearchFilter.DepartingFrom))
+        {
+            filterList.Filter(holidaySearchFilter);
+        }
 
         return _searchResults;
     }
