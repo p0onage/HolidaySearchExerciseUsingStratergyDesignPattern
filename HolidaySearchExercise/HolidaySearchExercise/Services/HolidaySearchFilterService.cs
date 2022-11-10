@@ -28,6 +28,12 @@ public class HolidaySearchFilterService : IHolidaySearchFilterService
             filterList.Filter(holidaySearchFilter);
         }
         
+        if (holidaySearchFilter.DepartureDate != default)
+        {
+            filterList.SetFilterStrategy(new FilterByDepartureDate());
+            filterList.Filter(holidaySearchFilter);
+        }
+        
         return _searchResults;
     }
 }

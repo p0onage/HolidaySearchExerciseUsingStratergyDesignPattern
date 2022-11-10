@@ -24,6 +24,17 @@ public class FilterByTravelingDestination : FilterStrategy
     }
 }
 
+public class FilterByDepartureDate : FilterStrategy
+{
+    public override void Sort(SearchResults searchResults, HolidaySearch filter)
+    {
+        searchResults.Flights = searchResults.Flights.Where(x => x.DepartureDate == filter.DepartureDate).ToList();
+        
+        // Potential issue, we don't know how long the flights take to arrive at destination to filter hotels on accurate arrival date.
+        searchResults.Hotels = searchResults.Hotels.Where(x => x.ArrivalDate == filter.DepartureDate).ToList();
+    }
+}
+
 
 public class FilterList
 {

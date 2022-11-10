@@ -35,7 +35,21 @@ public class HolidaySearchFilterServiceUnitTests
         Assert.Equal(results.Hotels.Count(), 2);
     }
 
-    
+    [Fact]
+    public void Filter_Results_By_Departure_Date_Should_Return()
+    {
+        var HolidaySearch = new HolidaySearch()
+        {
+            DepartureDate = new DateTime(2023, 07,01)
+        };
+            
+        var _sut = new HolidaySearchFilterService(new FlightsDataStore(), new HotelDataStore());
+
+        var results = _sut.FilterHolidaySearch(HolidaySearch);
+        Assert.Equal(results.Flights.Count(), 4);
+        Assert.Equal(results.Hotels.Count(), 2);
+    }
+
     [Fact]
     public void Filter_Results_By_Customer_One_Should_Return()
     {
