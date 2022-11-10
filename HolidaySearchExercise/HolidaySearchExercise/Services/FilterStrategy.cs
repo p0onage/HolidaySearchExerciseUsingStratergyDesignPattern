@@ -1,11 +1,37 @@
-﻿namespace HolidaySearchExercise;
+﻿using HolidaySearchExercise.Models;
 
-public class FilterStrategy
-{
-    
-}
+namespace HolidaySearchExercise;
 
 public abstract class FilterStrategy
 {
-    public abstract void Sort(List<string> list);
+    public abstract void Sort(SearchResults list, HolidaySearch filter);
+}
+
+public class FilterByDepartingAirport : FilterStrategy
+{
+    public override void Sort(SearchResults searchResults, HolidaySearch filter)
+    {
+        searchResults.Flights = searchResults.Flights.Where(x => x.From == filter.DepartingFrom).ToList();
+    }
+}
+
+public class FilterList
+{
+    private SearchResults searchResults;
+    private FilterStrategy filterStrategy;
+
+    public FilterList(SearchResults searchResults)
+    {
+        this.searchResults = searchResults;
+    }
+    public void SetFilterStrategy(FilterStrategy filterStrategy)
+    {
+        this.filterStrategy = filterStrategy;
+    }
+
+    public void Filter(HolidaySearch filter)
+    {
+        filterStrategy.Sort(searchResults, filter);
+    }
+
 }
