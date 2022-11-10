@@ -34,6 +34,12 @@ public class HolidaySearchFilterService : IHolidaySearchFilterService
             filterList.Filter(holidaySearchFilter);
         }
         
+        if (holidaySearchFilter.Duration != default)
+        {
+            filterList.SetFilterStrategy(new FilterByDuration());
+            filterList.Filter(holidaySearchFilter);
+        }
+        
         return _searchResults;
     }
 }

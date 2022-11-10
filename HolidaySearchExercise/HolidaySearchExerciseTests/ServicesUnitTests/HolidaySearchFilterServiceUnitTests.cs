@@ -36,6 +36,21 @@ public class HolidaySearchFilterServiceUnitTests
     }
 
     [Fact]
+    public void Filter_Results_By_Duration_Should_Return()
+    {
+        var HolidaySearch = new HolidaySearch()
+        {
+            Duration = 7
+        };
+            
+        var _sut = new HolidaySearchFilterService(new FlightsDataStore(), new HotelDataStore());
+
+        var results = _sut.FilterHolidaySearch(HolidaySearch);
+        Assert.Equal(results.Flights.Count(), 12);
+        Assert.Equal(results.Hotels.Count(), 5);
+    }
+    
+    [Fact]
     public void Filter_Results_By_Departure_Date_Should_Return()
     {
         var HolidaySearch = new HolidaySearch()

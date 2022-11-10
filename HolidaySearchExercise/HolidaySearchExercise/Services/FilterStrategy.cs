@@ -35,6 +35,14 @@ public class FilterByDepartureDate : FilterStrategy
     }
 }
 
+public class FilterByDuration : FilterStrategy
+{
+    public override void Sort(SearchResults searchResults, HolidaySearch filter)
+    {
+        //We could have flights without hotels because of this filter.
+        searchResults.Hotels = searchResults.Hotels.Where(x => x.Nights == filter.Duration).ToList();
+    }
+}
 
 public class FilterList
 {
