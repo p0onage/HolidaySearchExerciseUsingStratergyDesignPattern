@@ -16,13 +16,18 @@ public class HolidaySearchFilterService : IHolidaySearchFilterService
     {
         var filterList = new FilterList(_searchResults);
         
-        filterList.SetFilterStrategy(new FilterByDepartingAirport());
-
         if (!string.IsNullOrEmpty(holidaySearchFilter.DepartingFrom))
         {
+            filterList.SetFilterStrategy(new FilterByDepartingAirport());
             filterList.Filter(holidaySearchFilter);
         }
 
+        if (!string.IsNullOrEmpty(holidaySearchFilter.TravelingTo))
+        {
+            filterList.SetFilterStrategy(new FilterByTravelingDestination());
+            filterList.Filter(holidaySearchFilter);
+        }
+        
         return _searchResults;
     }
 }

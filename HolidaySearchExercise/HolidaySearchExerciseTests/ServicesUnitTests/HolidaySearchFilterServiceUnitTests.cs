@@ -21,6 +21,22 @@ public class HolidaySearchFilterServiceUnitTests
     }
     
     [Fact]
+    public void Filter_Results_By_Traveling_To_Destination_Should_Return()
+    {
+        var HolidaySearch = new HolidaySearch()
+        {
+            TravelingTo = "TFS"
+        };
+            
+        var _sut = new HolidaySearchFilterService(new FlightsDataStore(), new HotelDataStore());
+
+        var results = _sut.FilterHolidaySearch(HolidaySearch);
+        Assert.Equal(results.Flights.Count(), 1);
+        Assert.Equal(results.Hotels.Count(), 2);
+    }
+
+    
+    [Fact]
     public void Filter_Results_By_Customer_One_Should_Return()
     {
         // Expected result

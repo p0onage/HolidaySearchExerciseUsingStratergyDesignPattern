@@ -15,6 +15,16 @@ public class FilterByDepartingAirport : FilterStrategy
     }
 }
 
+public class FilterByTravelingDestination : FilterStrategy
+{
+    public override void Sort(SearchResults searchResults, HolidaySearch filter)
+    {
+        searchResults.Flights = searchResults.Flights.Where(x => x.To == filter.TravelingTo).ToList();
+        searchResults.Hotels = searchResults.Hotels.Where(x => x.LocalAirports.Contains(filter.TravelingTo)).ToList();
+    }
+}
+
+
 public class FilterList
 {
     private SearchResults searchResults;
